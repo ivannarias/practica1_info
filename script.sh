@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # pas 5
-fet=0
+fet=1
 
-if [ $# -ne 0 ]; then
+if [ ! -f "supervivents4.csv" ]; then
+        fet=0
+fi
+
+if [[ $# -ne 0 && "$fet" -ne 0 ]]; then
     argument=$1
     echo $argument
-
-    if [ ! -f "supervivents4.csv" ]; then
-	echo "No exiteix el fitxer de sortida."
-    fi
 
     resultat=$(grep -i -n "$argument" supervivents4.csv)
 
@@ -31,12 +31,13 @@ if [ $# -ne 0 ]; then
     	done
     fi
 
-else
-    echo "Has d'introduïr arguments."
-    exit 1
+elif [ "$fet" -ne 0 ]; then
+        echo "Has d'introduïr arguments."
+        exit 1
 fi
 
 if [ ! -f "supervivents4.csv" ]; then
+	echo "No exiteix el fitxer de sortida."
         fet=0
 fi
 
