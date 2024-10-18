@@ -3,7 +3,7 @@
 # pas 5
 fet=1
 
-if [ ! -f "supervivents4.csv" ]; then #Perquè, en cas que l'arxiu no existeixi, vagi directament a crear-lo.
+if [ ! -f "sortida.csv" ]; then #Perquè, en cas que l'arxiu no existeixi, vagi directament a crear-lo.
         fet=0
 fi
 
@@ -11,7 +11,7 @@ if [[ $# -ne 0 && "$fet" -ne 0 ]]; then #Si existeix l'arxiu, comprovem que hi h
     argument=$1
     echo $argument
 
-    resultat=$(grep -i -n "$argument" supervivents4.csv)
+    resultat=$(grep -i -n "$argument" sortida.csv)
 
     if [ -z "$resultat" ]; then	#Si no trobem el vídeo demanat, ho informem.
         echo "No s'ha trobat el video."
@@ -36,7 +36,7 @@ elif [ "$fet" -ne 0 ]; then #Si no hi ha inputs, i la variable fet NO és igual 
         exit 1
 fi
 
-if [ ! -f "supervivents4.csv" ]; then #Si no existeix l'arxiu, ho diem i assignem 0 a la variable fet.
+if [ ! -f "sortida.csv" ]; then #Si no existeix l'arxiu, ho diem i assignem 0 a la variable fet.
 	echo "No exiteix el fitxer de sortida."
         fet=0
 fi
@@ -104,5 +104,8 @@ if [ $fet -eq 0 ]; #Si fet=0, no existeix l'arxiu, així que correm el programa 
 
 	        echo "$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$c10,$c11,$c12,$c13,$c14,$c15,$resultat1,$resultat2" #Al final, fem print de tota la linia amb els seus valors corresponents a cada columna.
 	    fi
-	done < supervivents3.csv > supervivents4.csv #Finalment, l'output és conduït a un últim fitxer.
+	if [ -f "supervivents.csv" ]; then
+	    rm supervivents.csv supervivents1.csv supervivents2.csv supervivents3.csv
+	fi
+	done < supervivents3.csv > sortida.csv #Finalment, l'output és conduït a un últim fitxer.
    fi
